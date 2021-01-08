@@ -1,6 +1,4 @@
-.App {
-  margin: 50px;
-}
+
 .error {
   border: red 1px solid;
 }
@@ -12,4 +10,8 @@
 }
 .completed-task{
   opacity: 0.5;
+}
+.title-task{
+  padding: 0px 10px 10px 0px ;
+  font-size: 20px;
 }

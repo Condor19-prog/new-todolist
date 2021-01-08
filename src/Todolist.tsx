@@ -1,6 +1,9 @@
-import React, {useState, KeyboardEvent, ChangeEvent} from "react";
+import React, {ChangeEvent} from "react";
 import AddItemForm from "./AddItemForm";
 import EditableSpan from "./EditableSpan";
+import {Button, Checkbox, IconButton} from "@material-ui/core";
+import {useStyles} from "./styles";
+import DeleteIcon from '@material-ui/icons/Delete';
 
 export type filterValuesType = 'all' | 'active' | 'completed'
 
@@ -22,6 +25,7 @@ type todolistPropsType = {
     changeTasksTitle: (taskId: string, todolistId: string, newTitle: string) => void
     onChangeTitle: (todolistId: string, newTitle: string) => void
 }
+
 
 const Todolist: React.FC<todolistPropsType> = ({
                                                    title,
@@ -54,14 +58,17 @@ const Todolist: React.FC<todolistPropsType> = ({
     const onChangeTodolistTitle = (newTitle: string) => {
         onChangeTitle(todolistId, newTitle)
     }
+    const classes = useStyles()
 
     return (
         <div>
             <div>
-                <EditableSpan title={title} onChange={onChangeTodolistTitle}/>
-                <button onClick={removeTodolist}>&times;</button>
-
+                <h3>
+                    <EditableSpan title={title} onChange={onChangeTodolistTitle}/>
+                    <Button className={classes.smallBtn} onClick={removeTodolist}><DeleteIcon/></Button>
+                </h3>
                 <AddItemForm addItem={addTaskTitle}/>
+
             </div>
             <ul>
                 {tasks.map(t => {
@@ -70,29 +77,29 @@ const Todolist: React.FC<todolistPropsType> = ({
                         const newIsDoneChecked = e.currentTarget.checked
                         changeTaskStatus(t.id, newIsDoneChecked, todolistId)
                     }
-                    const onChangeTitleHandler = (newTitle: string) => {
+                    const onChangeTitleTask = (newTitle: string) => {
                         changeTasksTitle(t.id, todolistId, newTitle)
                     }
                     return <li key={t.id} className={t.isDone === true ? 'completed-task' : ''}>
-                        <input type="checkbox"
-                               checked={t.isDone}
-                               onChange={onChangeHandler}
+                        <Checkbox
+                            checked={t.isDone}
+                            onChange={onChangeHandler}
                         />
-                        <EditableSpan title={t.title} onChange={onChangeTitleHandler}/>
-                        <button onClick={onClickHandler}> x</button>
+                        <EditableSpan title={t.title} onChange={onChangeTitleTask}/>
+                        <IconButton className={classes.removeTask} onClick={onClickHandler}>&times;</IconButton>
                     </li>
                 })}
             </ul>
             <div>
-                <button className={filter === 'all' ? 'active-filter' : ''}
+                <Button className={filter === 'all' ? classes.red : classes.blue}
                         onClick={onAllClickHandler}>All
-                </button>
-                <button className={filter === 'active' ? 'active-filter' : ''}
+                </Button>
+                <Button className={filter === 'active' ? classes.red : classes.blue}
                         onClick={onActiveClickHandler}>Active
-                </button>
-                <button className={filter === 'completed' ? 'active-filter' : ''}
+                </Button>
+                <Button className={filter === 'completed' ? classes.red : classes.blue}
                         onClick={onCompletedClickHandler}>Completed
-                </button>
+                </Button>
             </div>
         </div>
     )
