@@ -1,5 +1,6 @@
 import {addTodolistActionType} from "./todolists-reducer";
 import {TasksStateType} from "../AppWithRedux";
+import {v1} from "uuid";
 
 type actionsType = removeTaskACType |
     addTaskACType |
@@ -45,7 +46,7 @@ export const tasksReducer = (state = initialState, action: actionsType): TasksSt
             return stateCopy
         }
         case 'ADD-TASK': {
-            const task = {id: action.todolistId, title: action.title, isDone: false}
+            const task = {id: v1(), title: action.title, isDone: false}
             const stateCopy = {...state}
             const todolistTasks = stateCopy[action.todolistId]
             stateCopy[action.todolistId] = [...todolistTasks, task]

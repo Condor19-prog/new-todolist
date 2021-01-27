@@ -21,8 +21,7 @@ const AddItemForm = (props: addItemFormType) => {
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
         if (e.key === 'Enter') {
-            props.addItem(title)
-            setTitle('')
+           addTaskTitle()
         }
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
