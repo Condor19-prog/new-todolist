@@ -7,7 +7,8 @@ type addItemFormType = {
     addItem: (title: string) => void
 }
 
-const AddItemForm = (props: addItemFormType) => {
+const AddItemForm = React.memo((props: addItemFormType) => {
+    console.log('AddItemForm called')
     const [title, setTitle] = useState('')
     const [error, setError] = useState<string | null>(null)
 
@@ -20,13 +21,13 @@ const AddItemForm = (props: addItemFormType) => {
         }
     }
     const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+        if (error !== null) setError(null)
         if (e.key === 'Enter') {
-           addTaskTitle()
+            addTaskTitle()
         }
     }
     const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setTitle(e.currentTarget.value)
-        setError(null)
     }
     const classes = useStyles()
     return (
@@ -42,5 +43,5 @@ const AddItemForm = (props: addItemFormType) => {
             <Button className={classes.smallBtn} onClick={addTaskTitle}>Add</Button>
         </div>
     )
-}
+})
 export default AddItemForm
