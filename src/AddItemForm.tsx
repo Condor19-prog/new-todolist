@@ -3,7 +3,7 @@ import {Button, TextField} from "@material-ui/core";
 import {useStyles} from "./styles";
 
 
-type addItemFormType = {
+export type addItemFormType = {
     addItem: (title: string) => void
 }
 

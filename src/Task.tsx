@@ -4,7 +4,7 @@ import EditableSpan from "./EditableSpan";
 import {taskType} from "./Todolist";
 import {useStyles} from "./styles";
 
-type taskPropsType = {
+export type taskPropsType = {
     removeTask: (taskId: string, todolistId: string) => void
     changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
     changeTasksTitle: (taskId: string, todolistId: string, newTitle: string) => void
@@ -28,13 +28,16 @@ const Task: React.FC<taskPropsType> = React.memo(({
     const onChangeTitleTask = useCallback((newTitle: string) => {
         changeTasksTitle(task.id, todolistId, newTitle)
     }, [changeTasksTitle, task.id, todolistId])
-    return <li key={task.id} className={task.isDone === true ? 'completed-task' : ''}>
-        <Checkbox
-            checked={task.isDone}
-            onChange={onChangeHandler}
-        />
-        <EditableSpan title={task.title} onChange={onChangeTitleTask}/>
-        <IconButton className={classes.removeTask} onClick={onClickHandler}>&times;</IconButton>
-    </li>
+
+    return (
+        <li key={task.id} className={task.isDone === true ? 'completed-task' : ''}>
+            <Checkbox
+                checked={task.isDone}
+                onChange={onChangeHandler}
+            />
+            <EditableSpan title={task.title} onChange={onChangeTitleTask}/>
+            <IconButton className={classes.removeTask} onClick={onClickHandler}>&times;</IconButton>
+        </li>
+    )
 })
 export default Task
