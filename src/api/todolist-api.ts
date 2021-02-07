@@ -1,14 +1,14 @@
 import axios from "axios";
 import {create} from "domain";
 
-const settings = {
+ const settings = {
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     withCredentials: true,
     headers: {
         'API-KEY': 'c9904dcf-3bb3-447f-a0b3-278ebd3674e9'
     }
 }
-const instance = axios.create({
+export const instance = axios.create({
     ...settings
 })
 type todolistType = {
@@ -17,7 +17,7 @@ type todolistType = {
     order: number
     title: string
 }
-type baseTodolistsResponseType<D = {}> = {
+export type baseTodolistsResponseType<D = {}> = {
     resultCode: number
     messages: string[]
     data: D
