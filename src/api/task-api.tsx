@@ -1,13 +1,13 @@
 import {baseTodolistsResponseType, instance} from "./todolist-api";
 
-type taskType = {
+export type taskType = {
     id: string,
     title: string,
     description: string,
     todoListId: string,
     order: number,
-    status: number,
-    priority: number,
+    status: taskStatuses,
+    priority: taskPriorities,
     startDate: string,
     deadline: string,
     addedDate: string
@@ -20,13 +20,33 @@ type updateTaskModelType = {
     deadline: string,
 }
 
+export enum taskStatuses {
+    New = 0,
+    InProgress = 1,
+    Completed = 2,
+    Draft = 3
+}
+
+export enum taskPriorities {
+    Low = 0,
+    Middle = 1,
+    High = 2,
+    Urgently = 3,
+    Later = 4
+}
+type GetTasksResponse = {
+    error: string | null
+    totalCount: number
+    items: taskType[]
+}
+
 
 export const tasksAPI = {
     getTasks(todolistId: string) {
-        return instance.get<taskType[]>(`todo-lists/${todolistId}/tasks`)
+        return instance.get<GetTasksResponse>(`todo-lists/${todolistId}/tasks`)
     },
     createTask(todolistId: string, title: string) {
-        return instance.post<baseTodolistsResponseType>(`todo-lists/${todolistId}/tasks`, {title})
+        return instance.post<baseTodolistsResponseType<{ item: taskType }>>(`todo-lists/${todolistId}/tasks`, {title})
     },
     deleteTask(todolistId: string, taskId: string) {
         return instance.delete<baseTodolistsResponseType>(`todo-lists/${todolistId}/tasks/${taskId}`)

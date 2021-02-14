@@ -1,5 +1,4 @@
 import axios from "axios";
-import {create} from "domain";
 
  const settings = {
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
@@ -11,7 +10,7 @@ import {create} from "domain";
 export const instance = axios.create({
     ...settings
 })
-type todolistType = {
+export type todolistType = {
     id: string
     addedDate: string
     order: number

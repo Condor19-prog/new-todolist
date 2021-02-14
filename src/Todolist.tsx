@@ -5,21 +5,17 @@ import {Button} from "@material-ui/core";
 import {useStyles} from "./styles";
 import DeleteIcon from '@material-ui/icons/Delete';
 import Task from "./Task";
+import {taskStatuses, taskType} from "./api/task-api";
 
 export type filterValuesType = 'all' | 'active' | 'completed'
 
-export type taskType = {
-    id: string
-    title: string
-    isDone: boolean
-}
 type todolistPropsType = {
     title: string
     tasks: taskType[]
     removeTask: (taskId: string, todolistId: string) => void
     changeFilter: (values: filterValuesType, todolistId: string) => void
     addTask: (newTaskTitle: string, todolistId: string) => void
-    changeTaskStatus: (taskId: string, isDone: boolean, todolistId: string) => void
+    changeTaskStatus: (taskId: string, status: taskStatuses, todolistId: string) => void
     filter: filterValuesType
     todolistId: string
     removeTodolists: (todolistId: string) => void
@@ -66,10 +62,10 @@ const Todolist: React.FC<todolistPropsType> = React.memo(({
 
     let tasksForTodolist = tasks
     if (filter === 'active') {
-        tasksForTodolist = tasks.filter(t => t.isDone === false)
+        tasksForTodolist = tasks.filter(t => t.status === taskStatuses.New)
     }
     if (filter === 'completed') {
-        tasksForTodolist = tasks.filter(t => t.isDone === true)
+        tasksForTodolist = tasks.filter(t => t.status === taskStatuses.Completed)
     }
 
     return (
