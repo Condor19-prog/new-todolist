@@ -12,7 +12,7 @@ export type taskType = {
     deadline: string,
     addedDate: string
 }
-type updateTaskModelType = {
+export type updateTaskModelType = {
     title: string,
     description: string,
     status: number,
