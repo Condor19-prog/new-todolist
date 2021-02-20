@@ -1,6 +1,6 @@
 import React from 'react';
 import {Meta, Story} from '@storybook/react/types-6-0';
-import Task, {taskPropsType} from "../Task";
+import Task, {taskPropsType} from "../features/task/Task";
 import {action} from "@storybook/addon-actions";
 import {taskPriorities, taskStatuses} from "../api/task-api";
 

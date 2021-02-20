@@ -1,23 +1,24 @@
 import React from 'react'
 import {Provider} from 'react-redux'
-import {combineReducers, createStore} from 'redux'
+import {applyMiddleware, combineReducers, createStore} from 'redux'
 import {v1} from 'uuid'
 import {tasksReducer} from "../../state/tasks-reducer";
 import {todolistReducer} from "../../state/todolists-reducer";
 import {appRootStateType} from "../../state/store";
 import {taskPriorities, taskStatuses} from "../../api/task-api";
-
+import {appReducer, RequestStatusType} from "../../state/app-reducer";
+import thunk from "redux-thunk";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
-    todolists: todolistReducer
+    todolists: todolistReducer,
+    app: appReducer
 })
-
 
 const initialGlobalState: appRootStateType = {
     todolists: [
-        {id: "todolistId1", title: "What to learn", filter: "all", order: 0, addedDate: ''},
-        {id: "todolistId2", title: "What to buy", filter: "all", order: 0, addedDate: ''}
+        {id: "todolistId1", title: "What to learn", filter: "all", order: 0, addedDate: '', entityStatus: "idle"},
+        {id: "todolistId2", title: "What to buy", filter: "all", order: 0, addedDate: '', entityStatus: "idle"}
     ],
     tasks: {
         ["todolistId1"]: [
@@ -72,10 +73,14 @@ const initialGlobalState: appRootStateType = {
                 status: taskStatuses.Completed
             }
         ]
+    },
+    app: {
+        status: 'succeeded' as RequestStatusType,
+        error: null as null | string
     }
 };
 
-export const storyBookStore = createStore(rootReducer, initialGlobalState);
+export const storyBookStore = createStore(rootReducer, initialGlobalState, applyMiddleware(thunk));
 
 export const ReduxStoreProviderDecorator = (storyFn: () => React.ReactNode) => (
     <Provider

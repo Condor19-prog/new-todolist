@@ -1,6 +1,6 @@
 import React, {ChangeEvent, useState} from "react";
 import {TextField} from "@material-ui/core";
-import './App.css'
+import '../../App.css'
 
 export type editableSpanType = {
     title: string
