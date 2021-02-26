@@ -8,11 +8,13 @@ import {appRootStateType} from "../../state/store";
 import {taskPriorities, taskStatuses} from "../../api/task-api";
 import {appReducer, RequestStatusType} from "../../state/app-reducer";
 import thunk from "redux-thunk";
+import {authReducer} from "../../state/authReducer";
 
 const rootReducer = combineReducers({
     tasks: tasksReducer,
     todolists: todolistReducer,
-    app: appReducer
+    app: appReducer,
+    auth: authReducer
 })
 
 const initialGlobalState: appRootStateType = {
@@ -76,7 +78,11 @@ const initialGlobalState: appRootStateType = {
     },
     app: {
         status: 'succeeded' as RequestStatusType,
-        error: null as null | string
+        error: null as null | string,
+        isInitialized: false
+    },
+    auth: {
+        isLoggedIn: false
     }
 };
 

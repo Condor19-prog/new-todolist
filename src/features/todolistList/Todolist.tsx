@@ -1,14 +1,14 @@
 import React, {useCallback, useEffect} from "react";
-import AddItemForm from "../components/AddItemForm/AddItemForm";
-import EditableSpan from "../components/EditableSpan/EditableSpan";
+import AddItemForm from "../../components/AddItemForm/AddItemForm";
+import EditableSpan from "../../components/EditableSpan/EditableSpan";
 import {Button} from "@material-ui/core";
-import {useStyles} from "../styles";
+import {useStyles} from "../../styles";
 import DeleteIcon from '@material-ui/icons/Delete';
-import Task from "./task/Task";
-import {taskStatuses, taskType} from "../api/task-api";
+import Task from "../task/Task";
+import {taskStatuses, taskType} from "../../api/task-api";
 import {useDispatch} from "react-redux";
-import {fetchTasksTC} from "../state/tasks-reducer";
-import {TodolistDomainType} from "../state/todolists-reducer";
+import {fetchTasksTC} from "../../state/tasks-reducer";
+import {TodolistDomainType} from "../../state/todolists-reducer";
 
 export type filterValuesType = 'all' | 'active' | 'completed'
 
@@ -46,7 +46,7 @@ const Todolist: React.FC<todolistPropsType> = React.memo(({
         if (!demo) {
             dispatch(fetchTasksTC(todolist.id))
         }
-    }, [dispatch, todolist.id])
+    }, [dispatch, todolist.id, demo])
 
     const onAllClickHandler = useCallback(() => {
         changeFilter('all', todolist.id)

@@ -1,11 +1,13 @@
 import {addTodolistActionType, changeTodolistEntityStatusAC, setTodolistsActionType} from "./todolists-reducer";
-import {TasksStateType} from "../features/AppWithRedux";
 import {tasksAPI, taskStatuses, taskType, updateTaskModelType} from "../api/task-api";
 import {Dispatch} from "redux";
 import {appRootStateType} from "./store";
-import {setAppErrorAC, setAppStatusAC} from "./app-reducer";
+import {setAppStatusAC} from "./app-reducer";
 import {handleServerAppError, handleServerNetworkError} from "../utils/error-utils";
 
+export type TasksStateType = {
+    [key: string]: taskType[]
+}
 type actionsType = removeTaskACType |
     addTaskACType |
     updateTaskACType |

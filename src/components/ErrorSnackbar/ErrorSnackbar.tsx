@@ -10,7 +10,6 @@ function Alert(props: AlertProps) {
 }
 
 export const ErrorSnackbar = React.memo(() => {
-    console.log('error component')
     const error = useSelector<appRootStateType, null | string>(state => state.app.error)
     const dispatch = useDispatch()
     const handleClose = (event?: React.SyntheticEvent, reason?: string) => {
