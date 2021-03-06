@@ -1,6 +1,6 @@
 {
   "name": "new-todolist",
-  "homepage": "http://condor19-prog.github.io/todolist",
+  "homepage": "http://condor19-prog.github.io/todolist/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
