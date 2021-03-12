@@ -18,6 +18,7 @@ export const authReducer = (state: initialStateType = initialState, action: acti
 }
 type setIsLoggedInACType = ReturnType<typeof setIsLoggedInAC>
 export const setIsLoggedInAC = (value: boolean) => ({type: 'login/SET-IS-LOGGED-IN', value} as const)
+
 export const loginTC = (data: loginParamsType) =>
     (dispatch: Dispatch) => {
         dispatch(setAppStatusAC('loading'))
